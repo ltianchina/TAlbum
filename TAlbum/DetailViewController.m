@@ -89,19 +89,19 @@
 #pragma mark - UIImagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    //UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-//    NSString *pictureName = [NSString stringWithFormat:@"%u",arc4random()%1000];
-//    NSString *name = [AlbumDB pictureFilePath:pictureName withAlbum:self.currentAlbum.albumid];
-//    [AlbumDB savePictureData:UIImageJPEGRepresentation(image, 1.0) withName:name];
-//    
-//    PictureModel *picture = [[PictureModel alloc] init];
-//    picture.pictureName = pictureName;
-//    picture.albumid = self.currentAlbum.albumid;
-//
-//    [AlbumDB addDataToPicture:picture];
-//    [picture release];
-//    [self loadPictures];
-//    [self.tableView reloadData];
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    NSString *pictureName = [NSString stringWithFormat:@"%u",arc4random()%1000];
+    NSString *name = [AlbumDB pictureFilePath:pictureName withAlbum:self.currentAlbum.albumid];
+    [AlbumDB savePictureData:UIImageJPEGRepresentation(image, 1.0) withName:name];
+
+    PictureModel *picture = [[PictureModel alloc] init];
+    picture.pictureName = pictureName;
+    picture.albumid = self.currentAlbum.albumid;
+
+    [AlbumDB addDataToPicture:picture];
+    [picture release];
+    [self loadPictures];
+    [self.tableView reloadData];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -122,7 +122,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     PictureModel *picture = _pictureArr[indexPath.row];
-    cell.textLabel.text = picture.pictureName;
+    cell.imageView.image = [UIImage imageNamed:picture.pictureName];
     
     return cell;
 }

@@ -10,6 +10,7 @@
 @class AlbumModel,PictureModel;
 
 @interface AlbumDB : NSObject
++ (NSString *)dataBasePathTest;
 
 + (void)createAlbumTable;
 
@@ -29,7 +30,7 @@
 
 + (NSMutableArray *)fetchPictureData:(NSInteger)albumid;
 
-//+ (NSString *)pictureFilePath:(NSString *)pictureName withAlbum:(NSUInteger)albumid;
-//
-//+ (void)savePictureData:(NSData *)data withName:(NSString *)pictureName;
++ (NSString *)pictureFilePath:(NSString *)pictureName withAlbum:(NSUInteger)albumid;
+
++ (void)savePictureData:(NSData *)data withName:(NSString *)pictureName;
 @end

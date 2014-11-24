@@ -14,7 +14,7 @@
 
 - (void)dealloc
 {
-    self.pictureName = nil;
+    [self.pictureName release];
     [super dealloc];
 }
 @end

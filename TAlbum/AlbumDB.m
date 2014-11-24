@@ -170,23 +170,28 @@
     return pictureArr;
 }
 
-//+ (NSString *)pictureFilePath:(NSString *)pictureName withAlbum:(NSUInteger)albumid
-//{
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentDirectory = paths[0];
-//    
-//    NSString *albumidPath = [NSString stringWithFormat:@"%d",albumid];
-//    
-//    //NSString *pictureFilePath = [documentDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",pictureName]];
-//    NSString *pictureFilePath = [[documentDirectory stringByAppendingPathComponent:albumidPath] stringByAppendingPathComponent:pictureName];
-//    
-//    return pictureFilePath;
-//}
-//
-//+ (void)savePictureData:(NSData *)data withName:(NSString *)pictureName
-//{
-//    NSFileManager * fileManager = [NSFileManager defaultManager];
-//    
-//    [fileManager createFileAtPath:pictureName contents:data attributes:nil];
-//}
++ (NSString *)pictureFilePath:(NSString *)pictureName withAlbum:(NSUInteger)albumid
+{
+    
+    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *albumFolder = [NSString stringWithFormat:@"%d",albumid];
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:albumFolder];
+    
+    NSError *error;
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error]; //Create folder
+    
+    NSString *path = [dataPath stringByAppendingPathComponent:pictureName];
+    
+    return path;
+}
+
++ (void)savePictureData:(NSData *)data withName:(NSString *)pictureName
+{
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    
+    [fileManager createFileAtPath:pictureName contents:data attributes:nil];
+}
 @end
