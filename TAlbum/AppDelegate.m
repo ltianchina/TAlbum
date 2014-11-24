@@ -21,7 +21,7 @@
     // Override point for customization after application launch.
     [AlbumDB createAlbumTable];
     [AlbumDB createPictureTable];
-    NSLog(@"=%@",[AlbumDB pictureFilePath:@"11" withAlbum:1]);
+    
     self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

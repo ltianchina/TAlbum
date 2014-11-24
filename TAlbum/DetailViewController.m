@@ -46,6 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self loadPictures];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,6 +92,7 @@
 {
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     NSString *pictureName = [NSString stringWithFormat:@"%u",arc4random()%1000];
+    NSLog(@"self.currentAlbum.albumid=%d",self.currentAlbum.albumid);
     NSString *name = [AlbumDB pictureFilePath:pictureName withAlbum:self.currentAlbum.albumid];
     [AlbumDB savePictureData:UIImageJPEGRepresentation(image, 1.0) withName:name];
 
@@ -121,8 +123,11 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
     PictureModel *picture = _pictureArr[indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:picture.pictureName];
+    
+    NSString *image = [AlbumDB pictureFilePath:picture.pictureName withAlbum:picture.albumid];
+    cell.imageView.image = [UIImage imageWithContentsOfFile:image];
     
     return cell;
 }
